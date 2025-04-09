@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,24 +25,20 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({
     filters.maxPrice || 2000
   ]);
 
-  // Helper to update filters and trigger parent callback
   const updateFilters = (newFilters: Partial<FilterOptions>) => {
     const updatedFilters = { ...filters, ...newFilters };
     setFilters(updatedFilters);
     onFilterChange(updatedFilters);
   };
 
-  // Handle search input
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateFilters({ search: e.target.value });
   };
 
-  // Handle category selection
   const handleCategoryChange = (value: string) => {
     updateFilters({ category: value === "all" ? null : value });
   };
 
-  // Handle price range changes
   const handlePriceRangeChange = (value: number[]) => {
     setPriceRange(value);
   };
@@ -52,12 +47,10 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({
     updateFilters({ minPrice: priceRange[0], maxPrice: priceRange[1] });
   };
 
-  // Handle rating filter
   const handleRatingChange = (value: number[]) => {
     updateFilters({ minRating: value[0] });
   };
 
-  // Clear all filters
   const handleClearFilters = () => {
     const clearedFilters: FilterOptions = {
       category: null,

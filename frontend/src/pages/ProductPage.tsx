@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -37,7 +36,6 @@ import {
 import { toast } from "sonner";
 
 const ProductPage: React.FC = () => {
-  // State for products and filtering
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
@@ -49,11 +47,9 @@ const ProductPage: React.FC = () => {
     search: "",
   });
   
-  // UI state
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
   const [isLoading, setIsLoading] = useState(true);
   
-  // Form and dialog state
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState<Product | undefined>(undefined);
@@ -62,7 +58,6 @@ const ProductPage: React.FC = () => {
 
   const navigate = useNavigate();
 
-  // Load products and categories
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -85,16 +80,13 @@ const ProductPage: React.FC = () => {
     loadData();
   }, []);
 
-  // Apply filters whenever they change or products change
   useEffect(() => {
     let result = [...products];
     
-    // Filter by category
     if (filters.category) {
       result = result.filter(product => product.category === filters.category);
     }
     
-    // Filter by price range
     if (filters.minPrice !== null) {
       result = result.filter(product => product.price >= (filters.minPrice || 0));
     }
@@ -102,12 +94,10 @@ const ProductPage: React.FC = () => {
       result = result.filter(product => product.price <= (filters.maxPrice || Infinity));
     }
     
-    // Filter by minimum rating
     if (filters.minRating !== null) {
       result = result.filter(product => product.rating >= (filters.minRating || 0));
     }
     
-    // Filter by search term
     if (filters.search) {
       const searchTerm = filters.search.toLowerCase();
       result = result.filter(
@@ -120,43 +110,36 @@ const ProductPage: React.FC = () => {
     setFilteredProducts(result);
   }, [filters, products]);
 
-  // Handle filter changes
   const handleFilterChange = (newFilters: FilterOptions) => {
     setFilters(newFilters);
   };
 
-  // Toggle view mode
   const toggleViewMode = () => {
     setViewMode(prevMode => (prevMode === "grid" ? "table" : "grid"));
   };
 
-  // Open product form for creation
   const handleAddProduct = () => {
     setCurrentProduct(undefined);
     setIsFormOpen(true);
   };
 
-  // Open product form for editing
   const handleEditProduct = (product: Product) => {
     setCurrentProduct(product);
     setIsFormOpen(true);
   };
 
-  // Handle product form submission (create or update)
   const handleProductSubmit = async (data: ProductFormData) => {
     try {
       setIsSubmitting(true);
       let updatedProduct: Product;
       
       if (currentProduct) {
-        // Update existing product
         updatedProduct = await updateProduct(currentProduct.id, data);
         setProducts(prevProducts =>
           prevProducts.map(p => (p.id === currentProduct.id ? updatedProduct : p))
         );
         toast.success("Product updated successfully");
       } else {
-        // Create new product
         updatedProduct = await createProduct(data);
         setProducts(prevProducts => [...prevProducts, updatedProduct]);
         toast.success("Product created successfully");
@@ -171,13 +154,11 @@ const ProductPage: React.FC = () => {
     }
   };
 
-  // Open delete confirmation dialog
   const handleDeleteClick = (productId: string) => {
     setProductToDelete(productId);
     setIsDeleteDialogOpen(true);
   };
 
-  // Confirm product deletion
   const confirmDelete = async () => {
     if (!productToDelete) return;
     
@@ -200,7 +181,6 @@ const ProductPage: React.FC = () => {
       
       <main className="flex-1 container mx-auto px-4 py-6">
         <div className="flex flex-col md:flex-row gap-6">
-          {/* Sidebar filters */}
           <div className="w-full md:w-64 lg:w-80 space-y-4">
             <ProductFilters
               categories={categories}
@@ -209,9 +189,7 @@ const ProductPage: React.FC = () => {
             />
           </div>
           
-          {/* Main content */}
           <div className="flex-1 space-y-4">
-            {/* Actions header */}
             <div className="flex justify-between items-center">
               <h1 className="text-2xl font-bold">Products</h1>
               <div className="flex space-x-2">
@@ -232,7 +210,6 @@ const ProductPage: React.FC = () => {
               </div>
             </div>
             
-            {/* Products display */}
             {isLoading ? (
               <div className="text-center py-8">Loading products...</div>
             ) : (
@@ -254,7 +231,6 @@ const ProductPage: React.FC = () => {
         </div>
       </main>
       
-      {/* Product form dialog */}
       <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
@@ -275,7 +251,6 @@ const ProductPage: React.FC = () => {
         </DialogContent>
       </Dialog>
       
-      {/* Delete confirmation dialog */}
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>

@@ -51,10 +51,3 @@ A **Full Stack Product Management System** built with **React (Frontend)** and *
 | Bcrypt | Password hashing |
 | JSON Web Token (JWT) | Authentication |
 | Dotenv | Environment variables |
-
-## ⚙️ Setup & Installation
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/your-username/product-management-system.git
-cd product-management-system

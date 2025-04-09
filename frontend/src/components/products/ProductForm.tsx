@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -43,15 +42,12 @@ const ProductForm: React.FC<ProductFormProps> = ({
         }
   });
 
-  // Watch the rating field to display the current value
   const watchRating = watch("rating", product?.rating || 3);
 
-  // Handle category selection
   const handleCategoryChange = (value: string) => {
     setValue("category", value);
   };
 
-  // Handle rating change
   const handleRatingChange = (value: number[]) => {
     setValue("rating", value[0]);
   };

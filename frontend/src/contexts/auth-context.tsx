@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User } from '@/types';
 import { toast } from "sonner";
@@ -20,7 +19,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is already logged in (token exists in localStorage)
     const storedToken = localStorage.getItem('jwt_token');
     const storedUser = localStorage.getItem('user');
     
@@ -34,12 +32,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      // In a real app, this would be an API call
-      // For demo purposes, we'll simulate a successful login with mock data
       const mockUser: User = { id: '1', email };
       const mockToken = 'mock_jwt_token_' + Math.random().toString(36).substring(2);
       
-      // Store token and user info in localStorage
       localStorage.setItem('jwt_token', mockToken);
       localStorage.setItem('user', JSON.stringify(mockUser));
       
@@ -57,12 +52,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signup = async (email: string, password: string): Promise<boolean> => {
     try {
-      // In a real app, this would be an API call
-      // For demo purposes, we'll simulate a successful signup
       const mockUser: User = { id: '1', email };
       const mockToken = 'mock_jwt_token_' + Math.random().toString(36).substring(2);
       
-      // Store token and user info in localStorage
       localStorage.setItem('jwt_token', mockToken);
       localStorage.setItem('user', JSON.stringify(mockUser));
       
@@ -79,7 +71,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
-    // Remove token and user info from localStorage
     localStorage.removeItem('jwt_token');
     localStorage.removeItem('user');
     

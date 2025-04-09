@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/auth-context";
@@ -7,7 +6,6 @@ const ProtectedRoute: React.FC = () => {
   const { user, isLoading } = useAuth();
   const location = useLocation();
 
-  // Show loading state while checking auth
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -16,12 +14,10 @@ const ProtectedRoute: React.FC = () => {
     );
   }
 
-  // Redirect to login if not authenticated
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Render the protected content
   return <Outlet />;
 };
 

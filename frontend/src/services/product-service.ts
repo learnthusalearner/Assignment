@@ -1,7 +1,5 @@
-
 import { Product, ProductFormData } from "@/types";
 
-// Mock data for products
 const mockProducts: Product[] = [
   {
     id: "1",
@@ -85,25 +83,19 @@ const mockProducts: Product[] = [
   }
 ];
 
-// Get all products
 export const getProducts = async (): Promise<Product[]> => {
-  // In a real app, this would be an API call
   return new Promise((resolve) => {
     setTimeout(() => resolve(mockProducts), 500);
   });
 };
 
-// Get product by ID
 export const getProductById = async (id: string): Promise<Product | undefined> => {
-  // In a real app, this would be an API call
   return new Promise((resolve) => {
     setTimeout(() => resolve(mockProducts.find(p => p.id === id)), 300);
   });
 };
 
-// Create product
 export const createProduct = async (productData: ProductFormData): Promise<Product> => {
-  // In a real app, this would be an API call
   const newProduct: Product = {
     id: `${Math.floor(Math.random() * 10000)}`,
     ...productData,
@@ -119,9 +111,7 @@ export const createProduct = async (productData: ProductFormData): Promise<Produ
   });
 };
 
-// Update product
 export const updateProduct = async (id: string, productData: ProductFormData): Promise<Product> => {
-  // In a real app, this would be an API call
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const index = mockProducts.findIndex(p => p.id === id);
@@ -140,9 +130,7 @@ export const updateProduct = async (id: string, productData: ProductFormData): P
   });
 };
 
-// Delete product
 export const deleteProduct = async (id: string): Promise<boolean> => {
-  // In a real app, this would be an API call
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const index = mockProducts.findIndex(p => p.id === id);
@@ -156,9 +144,7 @@ export const deleteProduct = async (id: string): Promise<boolean> => {
   });
 };
 
-// Get unique categories
 export const getCategories = async (): Promise<string[]> => {
-  // In a real app, this would be an API call
   return new Promise((resolve) => {
     const categories = Array.from(new Set(mockProducts.map(p => p.category)));
     setTimeout(() => resolve(categories), 300);

@@ -8,7 +8,6 @@ const Signup: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  // Redirect if user is already logged in
   useEffect(() => {
     if (user) {
       navigate("/");

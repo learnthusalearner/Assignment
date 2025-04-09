@@ -4,10 +4,8 @@ const { verifyToken } = require('../middleware/auth');
 
 const router = express.Router();
 
-// Apply auth middleware to all product routes
 router.use(verifyToken);
 
-// Get all products
 router.get('/', async (req, res) => {
   try {
     const products = await Product.find()
@@ -20,7 +18,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get a single product by ID
 router.get('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -39,7 +36,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create a new product
 router.post('/', async (req, res) => {
   try {
     const { name, description, price, imageUrl, category, inStock } = req.body;
@@ -66,24 +62,20 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update a product
 router.put('/:id', async (req, res) => {
   try {
     const { name, description, price, imageUrl, category, inStock } = req.body;
     
-    // Find product and check ownership
     const product = await Product.findById(req.params.id);
     
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
     
-    // Check if user owns the product or is an admin (implement admin role if needed)
     if (product.createdBy.toString() !== req.user.id) {
       return res.status(403).json({ message: 'Not authorized to update this product' });
     }
     
-    // Update fields
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
       {
@@ -111,7 +103,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete a product
 router.delete('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -120,7 +111,6 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Product not found' });
     }
     
-    // Check if user owns the product or is an admin
     if (product.createdBy.toString() !== req.user.id) {
       return res.status(403).json({ message: 'Not authorized to delete this product' });
     }
@@ -137,7 +127,6 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// Get products by current user
 router.get('/user/me', async (req, res) => {
   try {
     const products = await Product.find({ createdBy: req.user.id })

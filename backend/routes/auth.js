@@ -5,19 +5,15 @@ const { verifyToken } = require('../middleware/auth');
 const z = require('zod');
 const router = express.Router();
 
-// Register a new user
-
 router.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body;
     
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists with this email' });
     }
     
-    // Create new user
     const user = new User({
       name,
       email,
@@ -26,7 +22,6 @@ router.post('/signup', async (req, res) => {
     
     await user.save();
     
-    // Generate JWT token
     const token = jwt.sign(
       { id: user._id, email: user.email, name: user.name },
       process.env.JWT_SECRET,
@@ -48,24 +43,20 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-// Login existing user
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
     
-    // Check password
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
     
-    // Generate JWT token
     const token = jwt.sign(
       { id: user._id, email: user.email, name: user.name },
       process.env.JWT_SECRET,
@@ -87,7 +78,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Get current logged-in user
 router.get('/me', verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
