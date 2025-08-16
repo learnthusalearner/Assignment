@@ -297,5 +297,36 @@ For issues and questions, please create an issue in the repository with:
 - Error message
 - Store URL being scraped  
 - Steps to reproduce
-- Environment details#   A s s i g n m e n t  
- 
+- Environment details#
+## IMPORTANT
+
+- EMAIL_USER="your email address"
+- EMAIL_PASS="your email password"
+
+- TWILIO_SID="your Twilio SID"
+- TWILIO_AUTH_TOKEN="your Twilio Auth Token"
+- TWILIO_PHONE_NUMBER="your Twilio number"
+## Installation
+
+Frontend
+- cd frontend
+- npm install
+- npm run dev
+
+Backend
+- cd backend
+- npm install
+- node index.js
+
+
+## Tech Stack
+
+- Frontend: React + TailwindCSS + Axios
+
+- Backend: Node.js + Express
+
+- Email: Nodemailer
+
+- SMS: Twilio
+
+- In-App Storage: Local file or in-memory (can be replaced with DB)
