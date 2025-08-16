@@ -297,5 +297,6 @@ For issues and questions, please create an issue in the repository with:
 - Error message
 - Store URL being scraped  
 - Steps to reproduce
-- Environment details#   A s s i g n m e n t  
+- Environment details#   A s s i g n m e n t 
+ 
  
