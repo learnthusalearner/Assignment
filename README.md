@@ -278,25 +278,3 @@ curl -X POST "http://localhost:8000/api/v1/fetch-insights?website_url=https://gy
 
 This project is for educational purposes. Please respect website terms of service and robots.txt when scraping.
 
-## Troubleshooting
-
-### Common Issues
-
-1. **Connection Timeout**: Increase timeout in `app/utils/http.py`
-2. **Database Issues**: Check DATABASE_URL environment variable
-3. **Missing Data**: Some stores may have different HTML structures
-4. **Rate Limiting**: Adjust delays in fetcher service
-
-### Logging
-
-Enable detailed logging by setting `LOG_LEVEL=DEBUG` to see detailed scraping information.
-
-### Support
-
-For issues and questions, please create an issue in the repository with:
-- Error message
-- Store URL being scraped  
-- Steps to reproduce
-- Environment details#   A s s i g n m e n t 
- 
- 
